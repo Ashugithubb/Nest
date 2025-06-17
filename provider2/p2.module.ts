@@ -20,6 +20,6 @@ const connectionProvider = {
     TimeService
   ],
   controllers : [TimeController],
-exports: ['CONNECTION',TimeService],
+exports: ['CONNECTION',TimeService,Provider1],
 })
 export class P2Module{}

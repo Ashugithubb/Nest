@@ -7,6 +7,6 @@ export class TimeController3 {
 
   @Get('/p3')
   getTime3() {
-    return { time: this.time };
+    return { P3time: this.time };
   }
 }
