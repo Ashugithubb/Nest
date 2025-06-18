@@ -8,10 +8,11 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { METHODS } from 'http';
 import { P3Module } from 'src/provider3/p3.module';
 import { UserModule } from './Eocommerce/user.module';
+import { TaskModule } from 'Task/Task.module';
 
  
 @Module({
-  imports: [AuthModule,BookmarkModule,CatModule,P3Module,UserModule],
+  imports: [AuthModule,BookmarkModule,CatModule,P3Module,UserModule,TaskModule],
  
 })
 export class AppModule implements NestModule{
