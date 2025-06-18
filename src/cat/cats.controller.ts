@@ -28,4 +28,9 @@ delete(@Param('id') id: string) {
     ? { message: `Cat with id ${id} deleted` }
     : { message: `Cat with id ${id} not found` };
 }
+
+@Put('up')
+upsert(@Body() createCatDto:CreateCatDto){
+  return this.upsert(createCatDto)
+}
 }

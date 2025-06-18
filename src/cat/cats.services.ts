@@ -29,6 +29,17 @@ export class CatsService {
     this.cats.splice(index, 1);
     return true;
   }
-
+  
+  upSert(cat:Cat){
+    const index = cat.id;
+    const exist = this.cats.findIndex(c => c.id === index);
+    if(exist){
+      this.cats[index] = {...this.cats[index],...cat}
+    }
+    else{
+      this.create(cat);
+    }
+  }
 
 }
+
