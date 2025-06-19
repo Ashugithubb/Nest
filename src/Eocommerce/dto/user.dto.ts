@@ -1,6 +1,23 @@
-import { IsString, IsInt, Min, Max, IsStrongPassword, isEmail, IsEmail, IsPhoneNumber, IsEnum, IsUrl, IsNotEmpty, IsDate, IsEmpty, IsOptional, isString, isArray, IsPostalCode, ValidateNested, IsNumber } from 'class-validator';
-import { Url } from 'node:url';
+import {
+  IsString,
+  IsInt,
+  Min,
+  IsStrongPassword,
+  IsEmail,
+  IsPhoneNumber,
+  IsEnum,
+  IsUrl,
+  IsNotEmpty,
+  IsDate,
+  IsOptional,
+  IsPostalCode,
+  ValidateNested,
+  IsNumber,
+} from 'class-validator';
 import { Transform, Type } from 'class-transformer';
+import { BaseDTO } from 'src/Dynamic/repo.services'; // Adjust path as per your structure
+
+// Address DTO
 export class AddressDto {
   @IsString()
   @IsNotEmpty()
@@ -33,68 +50,71 @@ export class AddressDto {
   landmark?: string;
 }
 
-export class CreateUserDto {
-    @Transform(({value}) => parseInt(value))
-    @IsInt()
-    uid: number
+// User DTO
+export class CreateUserDto implements BaseDTO {
+  @Transform(({ value }) => parseInt(value))
+  @IsInt()
+  uid: number;
 
-    @IsNotEmpty()
-    @IsString()
-    @Transform(({ value }) => value.trim())
-    name: string;
+  @IsNotEmpty()
+  @IsString()
+  @Transform(({ value }) => value.trim())
+  name: string;
 
-    @IsNotEmpty()
-    @IsEmail()
-    @Transform(({ value }) => value.trim())
-    email:string;
+  @IsNotEmpty()
+  @IsEmail()
+  @Transform(({ value }) => value.trim())
+  email: string;
 
-    @IsInt()
-    @Min(0)
-    age: number;
+  @IsInt()
+  @Min(0)
+  age: number;
 
-    @IsEnum(["Male","Female" ,"Other"])
-    gender : ["Male" | "Female" | "Other"]
+  @IsEnum(["Male", "Female", "Other"])
+  gender: "Male" | "Female" | "Other";
 
-    @IsStrongPassword()
-    password: string;
-   
-    @IsPhoneNumber()
-    phone:string
+  @IsStrongPassword()
+  password: string;
 
-    @IsEnum(["User","Admin"])
-    role : "User" | "Admin";
+  @IsPhoneNumber()
+  phone: string;
 
-    @IsUrl()
-    @IsOptional()
-    @Transform(({ value }) => value.trim())
-    avatar : Url
+  @IsEnum(["User", "Admin"])
+  role: "User" | "Admin";
 
-  
-    @IsDate()
-    created_at : Date = new Date();
-    
-    @IsOptional()
-    bio: string = "Add Your Bio"
+  @IsUrl()
+  @IsOptional()
+  @Transform(({ value }) => value.trim())
+  avatar: string;
 
-    @ValidateNested()
-    @Type(() => AddressDto)
-    Adress : AddressDto
-} 
- export class Productdto{
+  @IsDate()
+  created_at: Date = new Date();
+
+  @IsOptional()
+  bio: string = "Add Your Bio";
+
+  @ValidateNested()
+  @Type(() => AddressDto)
+  address: AddressDto;
+}
+
+// Product DTO
+export class Productdto implements BaseDTO {
   @IsNumber()
-  id:number;
-  
+  id: number;
+
   @Transform(({ value }) => value.trim())
   @IsString()
-  productName:string;
+  productName: string;
 
   @IsNumber()
-  price:number;
+  price: number;
 
   @IsOptional()
   @IsString()
-  discount:string;
- }
+  discount: string;
+}
+
 
 
 /*
