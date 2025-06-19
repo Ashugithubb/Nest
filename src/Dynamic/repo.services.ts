@@ -1,58 +1,69 @@
 import { Injectable } from "@nestjs/common";
-import { CreateUserDto, Productdto } from "./dto/user.dto";
+import { CreateUserDto, Productdto } from "src/Eocommerce/dto/user.dto";
+import { TaskDto } from "Task/userTask.dto";
+
 
 @Injectable()
 export class Repo {
-    private readonly users: CreateUserDto[] = [];
+  
+  private storage = new Map<string, any[]>();
 
-    create(user: CreateUserDto) {
-        this.users.push(user);
-        return user;
+  private getStorageKey(dto: any): string {
+    if (dto instanceof CreateUserDto) return "user";
+    if (dto instanceof Productdto) return "product";
+    if(dto instanceof TaskDto) return "task";
+    throw new Error("Unsupported DTO type");
+  }
+
+  private getArrayByType(type: string): any[] {
+    if (!this.storage.has(type)) {
+      this.storage.set(type, []);
     }
+    return this.storage.get(type);
+  }
 
-    getAllUser() {
-        return this.users;
+  create(dto: any) {
+    const type = this.getStorageKey(dto);
+    const array = this.getArrayByType(type);
+    array.push(dto);
+    return dto;
+  }
+
+  getAll(type: string) {
+    return this.getArrayByType(type);
+  }
+
+  update(type: string, id: number, partial: any): any | undefined {
+    const array = this.getArrayByType(type);
+    const index = array.findIndex(item => item.uid === id || item.id === id);
+    if (index === -1) return undefined;
+    array[index] = { ...array[index], ...partial };
+    return array[index];
+  }
+
+  delete(type: string, id: number): boolean {
+    const array = this.getArrayByType(type);
+    const index = array.findIndex(item => item.uid === id || item.id === id);
+    if (index === -1) return false;
+    array.splice(index, 1);
+    return true;
+  }
+
+  upsert(dto: any) {
+    const type = this.getStorageKey(dto);
+    const array = this.getArrayByType(type);
+    const key = dto.uid ?? dto.id;
+    const index = array.findIndex(item => item.uid === key || item.id === key);
+    if (index !== -1) {
+      array[index] = { ...array[index], ...dto };
+    } else {
+        this.create(dto);
     }
+    return dto;
+  }
 
-     update(id: number, updatedUser: Partial<CreateUserDto>): CreateUserDto | undefined {
-        const userIndex = this.users.findIndex(u => u.uid === id);
-    
-        if (userIndex === -1) return undefined;
-    
-        this.users[userIndex] = { ...this.users[userIndex], ...updatedUser };
-        return this.users[userIndex];
-      }
-
-      delete(id: number): boolean {
-        const index = this.users.findIndex(u => u.uid === id);
-        if (index === -1) return false;
-    
-        this.users.splice(index, 1);
-        return true;
-      }
-
-      
-      upSert(user:CreateUserDto){
-        const index = user.uid;
-        const exist = this.users.findIndex(c => c.uid === index);
-        if(exist){
-          this.users[index] = {...this.users[index],...user}
-        }
-        else{
-          this.create(user);
-        }
-      }
-
-      private readonly Product:Productdto[]=[];
-      AddProduct(pro : Productdto){
-            return this.Product.push(pro);
-      }
-
-      SearchItem(id:number){
-        return this.Product.filter((items)=> items.id===id)
-      }    
-       
-      getProducts(){
-        return this.Product;
-      }
+  search(type: string, id: number) {
+    const array = this.getArrayByType(type);
+    return array.filter(item => item.uid === id || item.id === id);
+  }
 }

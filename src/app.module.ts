@@ -11,10 +11,11 @@ import { UserModule } from './Eocommerce/user.module';
 import { TaskModule } from 'Task/Task.module';
 import { MyServices } from './logger/loggerservices';
 import { LoggerModule } from './logger/logger.module';
+import { RepoModule } from './Dynamic/repo.module';
 
  
 @Module({
-  imports: [AuthModule,BookmarkModule,CatModule,P3Module,UserModule,TaskModule,LoggerModule]
+  imports: [AuthModule,BookmarkModule,CatModule,P3Module,UserModule,TaskModule,LoggerModule,RepoModule]
  
 })
 export class AppModule implements NestModule{

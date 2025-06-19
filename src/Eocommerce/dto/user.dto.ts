@@ -97,4 +97,52 @@ export class CreateUserDto {
  }
 
 
+/*
+{
+  "uid": 123,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "age": 28,
+  "gender": "Male",
+  "password": "Str0ngP@ssword!",
+  "phone": "+919999999999",
+  "role": "User",
+  "avatar": "https://example.com/avatar.jpg",
+  "created_at": "2025-06-19T08:00:00.000Z",
+  "bio": "Software engineer passionate about backend.",
+  "Adress": {
+    "street": "123 Main Street",
+    "city": "Bangalore",
+    "state": "KA",
+    "country": "IN",
+    "postalCode": "560001",
+    "landmark": "Near MG Road"
+  }
+}
+
+*/
+
+/*
+{
+  "id":1,
+  "productName":"Phone",
+  "price":15000,
+  "discount":"20%"
+}
+
+*/
+
+
+/*{
+  "name": "Ashu",
+  "age": 25,
+  "Task": [
+    {
+      "title": "Task 3"
+    },
+    {
+      "title": "Task 3"
+    }
+  ]
+}*/
 

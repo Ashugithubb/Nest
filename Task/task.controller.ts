@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Req } from "@nestjs/common";
 import { TaskProvider } from "./task.services";
 import { UserDto } from "./userTask.dto";
 
-@Controller('task')
+@Controller()
 export class TaskController{
     constructor(private TaskService:TaskProvider){}
     @Post()
