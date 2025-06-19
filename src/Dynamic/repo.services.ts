@@ -15,7 +15,7 @@ export class Repo {
     throw new Error("Unsupported DTO type");
   }
 
-  private getArrayByType(type: string): any[] {
+  private getArrayByType(type: string): any[] { 
     if (!this.storage.has(type)) {
       this.storage.set(type, []);
     }

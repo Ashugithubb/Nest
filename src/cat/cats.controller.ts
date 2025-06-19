@@ -3,8 +3,10 @@ import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common'
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.services';
 import { Cat } from '../interface/cat.interface';
+import { Logger } from 'src/logger/logger.decorator';
 
 @Controller('cats')
+@Logger()
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
