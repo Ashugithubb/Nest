@@ -9,10 +9,12 @@ import { METHODS } from 'http';
 import { P3Module } from 'src/provider3/p3.module';
 import { UserModule } from './Eocommerce/user.module';
 import { TaskModule } from 'Task/Task.module';
+import { MyServices } from './logger/loggerservices';
+import { LoggerModule } from './logger/logger.module';
 
  
 @Module({
-  imports: [AuthModule,BookmarkModule,CatModule,P3Module,UserModule,TaskModule],
+  imports: [AuthModule,BookmarkModule,CatModule,P3Module,UserModule,TaskModule,LoggerModule]
  
 })
 export class AppModule implements NestModule{

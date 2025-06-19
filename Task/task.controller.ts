@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req } from "@nestjs/common";
 import { TaskProvider } from "./task.services";
 import { UserDto } from "./userTask.dto";
 
@@ -10,7 +10,7 @@ export class TaskController{
         return this.TaskService.AddTask(task);
     }
     @Get()
-    SeeAllTask(){
+    SeeAllTask(@Req() req : Request){
         return this.TaskService.SeeAllTask();
     }
 }
